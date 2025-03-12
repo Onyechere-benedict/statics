@@ -1,74 +1,122 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { VictoryChart, VictoryLine, VictoryTheme } from "victory-native";
+import { Svg } from "react-native-svg";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const Dashboard = () => {
+  const data = [
+    { x: 2018, y: 4000 },
+    { x: 2019, y: 5000 },
+    { x: 2020, y: 7500 },
+    { x: 2021, y: 6000 },
+  ];
 
-export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-}
+    <View style={styles.container}>
+      {/* Header */}
+      <Text style={styles.title}>Statistics</Text>
+      <Text style={styles.subtitle}>Track your financial statistics</Text>
 
+      {/* Total Balance */}
+      <View style={styles.balanceContainer}>
+        <Text style={styles.balanceText}>Total Balance</Text>
+        <Text style={styles.balanceAmount}>$11,521.00</Text>
+      </View>
+
+      {/* Income & Spending */}
+      <View style={styles.infoContainer}>
+        <View style={styles.infoBox}>
+          <Text style={styles.spending}>🔼 Spending</Text>
+          <Text style={styles.amount}>$3120.00</Text>
+        </View>
+        <View style={styles.infoBox}>
+          <Text style={styles.income}>🔽 Income</Text>
+          <Text style={styles.amount}>$7932.00</Text>
+        </View>
+      </View>
+
+      {/* Graph */}
+      <Svg style={{ width: "100%", height: 250 }}>
+        <VictoryChart theme={VictoryTheme.material} padding={{ top: 20, bottom: 40 }}>
+          <VictoryLine data={data} style={{ data: { stroke: "#00ff99", strokeWidth: 3 } }} />
+        </VictoryChart>
+      </Svg>
+
+      {/* Year Selection */}
+      <TouchableOpacity style={styles.yearButton}>
+        <Text style={styles.yearText}>Year ▼</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+// Styles
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: "#121212",
+    padding: 20,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  title: {
+    color: "white",
+    fontSize: 24,
+    fontWeight: "bold",
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  subtitle: {
+    color: "gray",
+    fontSize: 14,
+  },
+  balanceContainer: {
+    backgroundColor: "#1c1c1c",
+    padding: 20,
+    borderRadius: 12,
+    marginTop: 20,
+  },
+  balanceText: {
+    color: "gray",
+    fontSize: 16,
+  },
+  balanceAmount: {
+    color: "white",
+    fontSize: 28,
+    fontWeight: "bold",
+  },
+  infoContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
+  infoBox: {
+    backgroundColor: "#1c1c1c",
+    padding: 15,
+    borderRadius: 10,
+    width: "48%",
+    alignItems: "center",
+  },
+  spending: {
+    color: "#ff4444",
+    fontWeight: "bold",
+  },
+  income: {
+    color: "#44ff44",
+    fontWeight: "bold",
+  },
+  amount: {
+    color: "white",
+    fontSize: 18,
+    marginTop: 5,
+  },
+  yearButton: {
+    backgroundColor: "#00ff99",
+    padding: 10,
+    borderRadius: 8,
+    alignSelf: "center",
+    marginTop: 20,
+  },
+  yearText: {
+    color: "#121212",
+    fontWeight: "bold",
   },
 });
+
+export default Dashboard;
