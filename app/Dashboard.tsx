@@ -1,10 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
-import { LineChart } from "react-native-chart-kit";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { VictoryTheme, VictoryChart, VictoryLine, VictoryBar } from "victory";
 import { Svg } from "react-native-svg";
 
-const Index = () => {
-	const { width } = Dimensions.get("window");
+const Dashboard = () => {
 	const data = [
 		{ x: 2018, y: 4000 },
 		{ x: 2019, y: 5000 },
@@ -37,39 +36,12 @@ const Index = () => {
 			</View>
 
 			{/* Graph */}
-			{/* <Svg style={{ width: "100%", height: 250 }}>
-				<VictoryChart padding={{ top: 20, bottom: 40 }}>
+			<Svg style={{ width: "100%", height: 250 }}>
+				<VictoryChart theme={VictoryTheme.grayscale} padding={{ top: 20, bottom: 40 }}>
 					<VictoryLine data={data} style={{ data: { stroke: "#00ff99", strokeWidth: 3 } }} />
 				</VictoryChart>
-				
-			</Svg> */}
-			<LineChart
-				data={{
-					labels: ["2018", "2019", "2020", "2021"],
-					datasets: [
-						{
-							data: [4000, 5000, 7500, 6000],
-							color: () => `rgba(0, 255, 0, 1)`, // Green color
-							strokeWidth: 3,
-						},
-					],
-				}}
-				width={width - 20}
-				height={220}
-				yAxisLabel="$"
-				chartConfig={{
-					backgroundGradientFrom: "#000",
-					backgroundGradientTo: "#000",
-					decimalPlaces: 2,
-					color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
-					labelColor: () => "#fff",
-				}}
-				bezier // Smooth curve
-				style={{
-					marginVertical: 10,
-					borderRadius: 16,
-				}}
-			/>
+			</Svg>
+
 			{/* Year Selection */}
 			<TouchableOpacity style={styles.yearButton}>
 				<Text style={styles.yearText}>Year ▼</Text>
@@ -147,4 +119,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Index;
+export default Dashboard;
