@@ -49,7 +49,7 @@ const Index = () => {
 					datasets: [
 						{
 							data: [4000, 5000, 7500, 6000],
-							color: () => `rgba(0, 255, 0, 1)`, // Green color
+							color: () => `rgba(0, 255, 0, 1)`,
 							strokeWidth: 3,
 						},
 					],
@@ -64,7 +64,7 @@ const Index = () => {
 					color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
 					labelColor: () => "#fff",
 				}}
-				bezier // Smooth curve
+				bezier
 				style={{
 					marginVertical: 10,
 					borderRadius: 16,
